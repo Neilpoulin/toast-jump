@@ -1,7 +1,0 @@
-version: "Apple Swift version 5.0.1 (swiftlang-1001.0.82.4 clang-1001.0.46.5)"
-options: "263560025a0263160b8b2f8ec0fdd2bf"
-build_time: [1557645654, 606520000]
-inputs:
-  "/Users/neilpoulin/repos/Toast Jump/Toast Jump/GameScene.swift": !private [1557645654, 547657730]
-  "/Users/neilpoulin/repos/Toast Jump/Toast Jump/GameViewController.swift": [1557643722, 860455286]
-  "/Users/neilpoulin/repos/Toast Jump/Toast Jump/AppDelegate.swift": [1557637479, 364895588]
