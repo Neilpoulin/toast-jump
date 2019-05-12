@@ -12,16 +12,25 @@ import GameplayKit
 
 class GameViewController: UIViewController {
 
+    var scene: GameScene?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
+       self.createScene()
+    }
+    
+    
+    func createScene(){
         // including entities and graphs.
         if let scene = GKScene(fileNamed: "GameScene") {
             
+            //            scene.showF
+            //            self.view as SKView
             // Get the SKScene from the loaded GKScene
             if let sceneNode = scene.rootNode as! GameScene? {
-                
+                self.scene = sceneNode
                 // Copy gameplay related content over to the scene
                 sceneNode.entities = scene.entities
                 sceneNode.graphs = scene.graphs
@@ -41,7 +50,15 @@ class GameViewController: UIViewController {
             }
         }
     }
+    
 
+    @IBAction func resetTapped(_ sender: Any) {
+        print("reset scene")
+        self.createScene()
+        
+    }
+    
+    
     override var shouldAutorotate: Bool {
         return true
     }

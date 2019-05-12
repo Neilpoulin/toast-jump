@@ -16,11 +16,16 @@ class GameScene: SKScene {
     
     private var lastUpdateTime : TimeInterval = 0
     private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
     
+//    var toastNode = SKSpriteNode(imageNamed: "toast")
+    var toasterNode = SKSpriteNode(imageNamed: "toaster-cartoon")
+    var isFlying = false
     override func sceneDidLoad() {
 
-        self.lastUpdateTime = 0
+        self.lastUpdateTime = 0        
+
+        
+        let ground = createGround()
         
         // Get label node from scene and store it for use later
         self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
@@ -28,51 +33,85 @@ class GameScene: SKScene {
             label.alpha = 0.0
             label.run(SKAction.fadeIn(withDuration: 2.0))
         }
+
+//        configureToast()
+        configureToaster()
         
-        // Create shape node to use during mouse interaction
-        let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
-        
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 2.5
-            
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
-        }
+//        addChild(toastNode)
+        addChild(toasterNode)
+        addChild(ground)
     }
     
+    func createGround() -> SKShapeNode{
+        // Create the ground node and physics body
+        var splinePoints = [CGPoint(x: -size.width, y: -size.height/2 + 400),
+            CGPoint(x: 0, y: -size.height/2 + 100),
+            CGPoint(x: size.width, y: -size.height/2 + 400)]
+        let ground = SKShapeNode(splinePoints: &splinePoints,
+                                 count: splinePoints.count)
+        
+        ground.lineWidth = 5
+        ground.physicsBody = SKPhysicsBody(edgeChainFrom: ground.path!)
+        ground.physicsBody?.restitution = 0.75
+        ground.physicsBody?.isDynamic = false
+        
+        
+        return ground
+    }
+    
+    func getToasterTop() -> CGFloat{
+        let toasterHeight = toasterNode.size.height
+        return -size.height/2 + toasterHeight
+    }
+    
+    func configureToaster(){
+        let toasterHeight = toasterNode.size.height
+        toasterNode.position = CGPoint(x: 0, y: -size.height/2 + toasterHeight/2)        
+    }
+    
+    func createToast() -> SKSpriteNode {
+        let toastNode = SKSpriteNode(imageNamed: "toast")
+        self.configureToast(toastNode)
+        self.addChild(toastNode)
+        return toastNode
+    }
+    
+    func configureToast(_ toastNode: SKSpriteNode){
+        toastNode.scale(to: CGSize(width: toastNode.size.width * 0.2, height: toastNode.size.height * 0.2))
+        
+        let body = SKPhysicsBody(texture: toastNode.texture!, size: toastNode.size)
+//        let body = SKPhysicsBody(rectangleOf: CGSize(width: toastNode.size.width, height: toastNode.size.height))
+        toastNode.physicsBody = body
+        let toastHeight = toastNode.size.height
+        
+        toastNode.position = CGPoint(x: 0, y: getToasterTop())
+        
+        toastNode.run(SKAction.sequence([
+            SKAction.wait(forDuration: 2.0),
+            SKAction.fadeOut(withDuration: 0.5),
+            SKAction.removeFromParent()
+            ]))
+    }
     
     func touchDown(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
-        }
+        
+        
     }
     
     func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
-        }
+
     }
     
     func touchUp(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.red
-            self.addChild(n)
-        }
+        let toastNode = createToast()
+        toastNode.physicsBody?.velocity.dy = CGFloat(GKRandomSource.sharedRandom().nextInt(upperBound: 2000)) + 1000
+        toastNode.physicsBody?.affectedByGravity = true
+        toastNode.physicsBody?.isDynamic = true
+        let duration = Double(GKRandomSource.sharedRandom().nextInt(upperBound: 100)) * 0.05
+        toastNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: duration)))
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-        }
-        
         for t in touches { self.touchDown(atPoint: t.location(in: self)) }
     }
     

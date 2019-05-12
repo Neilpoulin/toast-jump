@@ -15,6 +15,7 @@
 		308638C82287E0E7000A8841 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 308638C62287E0E7000A8841 /* Main.storyboard */; };
 		308638CA2287E0E8000A8841 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 308638C92287E0E8000A8841 /* Assets.xcassets */; };
 		308638CD2287E0E8000A8841 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 308638CB2287E0E8000A8841 /* LaunchScreen.storyboard */; };
+		308638D52287E223000A8841 /* toaster.png in Resources */ = {isa = PBXBuildFile; fileRef = 308638D42287E223000A8841 /* toaster.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		308638C92287E0E8000A8841 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		308638CC2287E0E8000A8841 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		308638CE2287E0E8000A8841 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		308638D42287E223000A8841 /* toaster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toaster.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,13 +62,14 @@
 		308638BB2287E0E7000A8841 /* Toast Jump */ = {
 			isa = PBXGroup;
 			children = (
+				308638C92287E0E8000A8841 /* Assets.xcassets */,
+				308638D42287E223000A8841 /* toaster.png */,
 				308638BC2287E0E7000A8841 /* AppDelegate.swift */,
 				308638BE2287E0E7000A8841 /* GameScene.sks */,
 				308638C02287E0E7000A8841 /* Actions.sks */,
 				308638C22287E0E7000A8841 /* GameScene.swift */,
 				308638C42287E0E7000A8841 /* GameViewController.swift */,
 				308638C62287E0E7000A8841 /* Main.storyboard */,
-				308638C92287E0E8000A8841 /* Assets.xcassets */,
 				308638CB2287E0E8000A8841 /* LaunchScreen.storyboard */,
 				308638CE2287E0E8000A8841 /* Info.plist */,
 			);
@@ -135,6 +138,7 @@
 				308638BF2287E0E7000A8841 /* GameScene.sks in Resources */,
 				308638CA2287E0E8000A8841 /* Assets.xcassets in Resources */,
 				308638CD2287E0E8000A8841 /* LaunchScreen.storyboard in Resources */,
+				308638D52287E223000A8841 /* toaster.png in Resources */,
 				308638C12287E0E7000A8841 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
